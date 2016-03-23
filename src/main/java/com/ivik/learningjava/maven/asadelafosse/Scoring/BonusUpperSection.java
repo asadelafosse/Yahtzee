@@ -10,19 +10,19 @@ public class BonusUpperSection extends ScoreSheet {
         filled = true;
         fieldDescription = "Upper Section Bonus";
     }
-    boolean qualifies(int[] rollResult){
+    public boolean qualifies(int[] rollResult){
         return false;
     };
 
-    int determineUpperBonus(ScoreSheet[][] scoreSheet){
+    public static int determineUpperBonus(ScoreSheet[][] scoreSheet){
         int totalUpperScore = 0;
         for (int i = 0; i < 6; i++) {
             totalUpperScore += scoreSheet[0][i].fieldScore;
             if (totalUpperScore >= 63) {
-                scoreSheet[0][6].fieldScore = 35;
+                return 35;
             }
         }
-            return scoreSheet[0][6].fieldScore;
+            return 0;
         }
 
     boolean checkUpperBonus(ScoreSheet[][] scoreSheet){

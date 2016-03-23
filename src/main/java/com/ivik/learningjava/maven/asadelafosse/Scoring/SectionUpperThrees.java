@@ -10,8 +10,14 @@ public class SectionUpperThrees extends SectionUpper {
         this.fieldDescription = "Threes";
     }
 
-    boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check){
+    public boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check){
         return !((check.isMandatory && !check.isMandatoryThrees) || check.isLowerSectionJoker);
+    }
+
+    public boolean isAllowed(int[]rollResult, ExtraYahtzeeChecker check) {
+        if (check.isMandatory) {
+            return check.isMandatoryThrees;
+        } else return !check.isLowerSectionJoker;
     }
 
     public int determineScore(int[] rollResult){

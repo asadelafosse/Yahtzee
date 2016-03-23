@@ -25,7 +25,7 @@ public class ScoreExecutor {
         ScoreSheet[] lowerHalf = {scoreThreeOfAKind, scoreFourOfAKind, scoreFullHouse, scoreSmallStraight,
                 scoreLargeStraight, scoreYahtzee, scoreChance};
 
-        ScoreSheet scoreExtraYahtzeeBonus = new ScoreSheet();
+        ScoreSheet scoreExtraYahtzeeBonus = new BonusExtraYahtzee();
         ScoreSheet[] bonusPoints = {scoreExtraYahtzeeBonus};
 
         return new ScoreSheet[][] {upperHalf, lowerHalf, bonusPoints};

@@ -11,7 +11,7 @@ public class ScoreTableEntry {
 
     public ScoreTableEntry(ScoreSheet scoreSheet){
         this.title = scoreSheet.fieldDescription;
-        this.score = scoreSheet.determineScoreString(scoreSheet);
+        this.score = scoreSheet.fieldScoreString;
     }
 
     public ScoreTableEntry(String title, int score){
@@ -27,4 +27,7 @@ public class ScoreTableEntry {
         return score;
     }
 
+    public void setScore(String score) {
+        this.score = score;
+    }
 }

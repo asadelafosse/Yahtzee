@@ -28,7 +28,7 @@ public class RollEvaluator {
     public static int countAllDice(int[] roll){
         int result = 0;
         for (int i = 0; i < roll.length; i++){
-            result += countAllOfOneKind(roll, i);
+            result += countAllOfOneKind(roll, i + 1);
         }
         return result;
     }

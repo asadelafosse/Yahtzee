@@ -12,7 +12,7 @@ public class SectionLowerChance extends SectionLower {
         this.fieldDescription = "Chance";
     }
 
-    boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check) {
+    public boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check) {
         return !check.isMandatory;
     }
 

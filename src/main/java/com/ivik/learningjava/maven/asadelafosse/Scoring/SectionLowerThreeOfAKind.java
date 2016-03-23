@@ -13,7 +13,7 @@ public class SectionLowerThreeOfAKind extends SectionLower {
     }
 
 
-    boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check) {
+    public boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check) {
         if (check.isMandatory) {
             return false;
         } else {

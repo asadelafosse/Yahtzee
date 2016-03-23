@@ -20,23 +20,4 @@ public class Roll {
         }
         return rollResult;
     }
-
-    /*public static ArrayList<Integer> rerollSomeDice(boolean[] untouchedDice){
-        ArrayList<Integer> rollResult = new ArrayList();
-        for (int i = 0; i < 5; i++){
-            if (!untouchedDice[i]){
-                continue;
-            }
-            rollResult.add(rollSingleDie());
-        }
-        return rollResult;
-    }
-
-    public ArrayList<Integer> performFirstRoll = rollTheDice();
-
-    public ArrayList<Integer> performConsecutiveRoll(boolean[] untouchedDice){
-        return rerollSomeDice(untouchedDice);
-    }*/
-
-
 }

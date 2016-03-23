@@ -1,6 +1,8 @@
 package com.ivik.learningjava.maven.asadelafosse;
 
+import com.ivik.learningjava.maven.asadelafosse.Scoring.BonusUpperSection;
 import com.ivik.learningjava.maven.asadelafosse.Scoring.ScoreSheet;
+import com.ivik.learningjava.maven.asadelafosse.Scoring.TotalScore;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.DiceVisuals;
 import com.ivik.learningjava.maven.asadelafosse.Scoring.ScoreExecutor;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.Checkboxes;
@@ -19,16 +21,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 /**
  * Created by Sebastien on 15-3-2016.
  */
 public class Game extends Application{
 
-    static final int NUMBEROFTURNS = 13;
+    public static final int NUMBEROFTURNS = 13;
+    public static int turnCounter = 0;
+    ArrayList<Integer> turnOutcome;
 
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
 
         final Pane root = new Pane();
         Scene scene = new Scene(root, 800, 1000);
@@ -36,13 +44,14 @@ public class Game extends Application{
         primaryStage.setTitle("Yahtzee Solitaire");
 
         final ScoreSheet[][] scoreSheet = ScoreExecutor.createScoreSheet();
+        scoreSheet[0][6].recordScore(BonusUpperSection.determineUpperBonus(scoreSheet));
 
         TableView upperScores = ScoreTableCrafter.upperScores(scoreSheet);
         TableView lowerScores = ScoreTableCrafter.lowerScores(scoreSheet);
         TableView totalScores = ScoreTableCrafter.totalScores (scoreSheet);
 
-        VBox vbox = new VBox(20);
-        vbox.setPadding(new Insets(25, 25, 25, 25));;
+        final VBox vbox = new VBox(20);
+        vbox.setPadding(new Insets(25, 25, 25, 25));
         vbox.getChildren().addAll(upperScores, lowerScores, totalScores);
 
         final Rectangle[] drawnDice = DiceVisuals.drawDice();
@@ -202,28 +211,49 @@ public class Game extends Application{
         allPips.getChildren().addAll(pips1, pips2, pips3, pips4, pips5, pips6, pips7);
         final Circle[][] DICEPIPS = {centerPips, topLeftPips, centerLeftPips, bottomLeftPips, topRightPips, centerRightPips, bottomRightPips};
 
-        final Button startnewTurn = new Button("New Turn!");
-        startnewTurn.setTranslateX(550);
-        startnewTurn.setTranslateY(550);
-        startnewTurn.setOnAction(new EventHandler<ActionEvent>() {
+        final Button close = new Button("Close");
+        close.setVisible(false);
+        close.setTranslateX(550);
+        close.setTranslateY(500);
+        close.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-                startnewTurn.setVisible(false);
-                try {Turn thisTurn = new Turn(root, scoreSheet, DICEPIPS, drawnCheckboxes, startnewTurn);}
-                catch (InterruptedException e){}
+                primaryStage.close();
             }
         });
 
-        root.getChildren().addAll(vbox, dice, allPips, startnewTurn, checkboxes);
+        final Button finish = new Button("Finish");
+        finish.setVisible(false);
+        finish.setTranslateX(550);
+        finish.setTranslateY(250);
+        finish.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                finish.setVisible(false);
+                Group endOfGame = new Group();
+                Text endText = new Text(465, 250, ("YOUR FINAL SCORE IS: " + TotalScore.updateScores(scoreSheet)[3]));
+                endText.setFont(Font.font(null, FontWeight.BOLD, 20));
+                endOfGame.getChildren().add(endText);
+                root.getChildren().add(endOfGame);
+                close.setVisible(true);
+            }
+        });
 
+        final Button startNewTurn = new Button("New Turn!");
+        startNewTurn.setTranslateX(550);
+        startNewTurn.setTranslateY(550);
+        startNewTurn.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                startNewTurn.setVisible(false);
+                try {Turn thisTurn = new Turn(root, scoreSheet, DICEPIPS, drawnCheckboxes, startNewTurn, finish, vbox);
+                    turnOutcome = thisTurn.myRoll;
+                }
+                catch (InterruptedException e){
+                }
+            }
+        });
+
+        root.getChildren().addAll(vbox, dice, allPips, startNewTurn, finish, close, checkboxes);
         primaryStage.setScene(scene);
         primaryStage.show();
-        //schermopbouw
-
-        //for (int turnCount = 0; turnCount < NUMBEROFTURNS; turnCount++){
-        //    Turn thisTurn = new Turn(scoreSheet);
-        //}
-
-        //endofgame
     }
 
     public static void main(String[] args) {

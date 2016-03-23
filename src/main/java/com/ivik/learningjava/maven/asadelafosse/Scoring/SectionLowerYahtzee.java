@@ -11,9 +11,9 @@ public class SectionLowerYahtzee extends SectionLower {
     }
 
 
-    boolean qualifies(int[] rollResult){
+    public boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check){
         for (int i : rollResult) {
-            if (i >= 5) {
+            if (i == 5) {
                 return true;
             }
         }

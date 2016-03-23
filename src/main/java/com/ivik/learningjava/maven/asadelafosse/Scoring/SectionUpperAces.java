@@ -14,6 +14,12 @@ public class SectionUpperAces extends SectionUpper {
         return !((check.isMandatory && !check.isMandatoryAces) || check.isLowerSectionJoker);
     }
 
+    public boolean isAllowed(int[]rollResult, ExtraYahtzeeChecker check) {
+        if (check.isMandatory) {
+            return check.isMandatoryAces;
+        } else return !check.isLowerSectionJoker;
+    }
+
     public int determineScore(int[] rollResult){
         return rollResult[0] * 1;
     }

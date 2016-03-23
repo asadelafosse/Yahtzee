@@ -11,8 +11,10 @@ public class SectionLowerFullHouse extends SectionLower {
     }
 
 
-    boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check) {
-        if (check.isMandatory) {
+    public boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check) {
+        if (check.isLowerSectionJoker){
+            return true;
+        } else if (check.isMandatory) {
             return false;
         } else {
             for (int i : rollResult) {

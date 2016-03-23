@@ -33,32 +33,31 @@ public class ExtraYahtzeeChecker {
         }
         return 0;
     }
-    public ExtraYahtzeeChecker processExtraYahtzee(int[] roll, ScoreSheet[][] scoreSheet, ExtraYahtzeeChecker check) {
+    public static ExtraYahtzeeChecker processExtraYahtzee(int[] roll, ScoreSheet[][] scoreSheet, ExtraYahtzeeChecker check) {
         int yahtzeeKind = determineYahtzeeKind(roll);
-        if (scoreSheet[1][5].qualifies(roll) && scoreSheet[1][5].filled && scoreSheet[1][5].fieldScore == 50) {
-            scoreSheet[2][0].fieldScore += 100;
+        if (scoreSheet[1][5].qualifies(roll, new ExtraYahtzeeChecker()) && scoreSheet[1][5].filled && scoreSheet[1][5].fieldScore == 50) {
             check.isMandatory = true;
-            if (yahtzeeKind == 1 && !scoreSheet[0][0].filled) {
+            if (yahtzeeKind == 1 & !scoreSheet[0][0].filled) {
                 check.isMandatoryAces = true;
-            } else if (yahtzeeKind == 2 && !scoreSheet[0][1].filled) {
+            } else if (yahtzeeKind == 2 & !scoreSheet[0][1].filled) {
                 check.isMandatoryTwos = true;
-            } else if (yahtzeeKind == 3 && !scoreSheet[0][2].filled) {
+            } else if (yahtzeeKind == 3 & !scoreSheet[0][2].filled) {
                 check.isMandatoryThrees = true;
-            } else if (yahtzeeKind == 4 && !scoreSheet[0][3].filled) {
+            } else if (yahtzeeKind == 4 & !scoreSheet[0][3].filled) {
                 check.isMandatoryFours = true;
-            } else if (yahtzeeKind == 5 && !scoreSheet[0][4].filled) {
+            } else if (yahtzeeKind == 5 & !scoreSheet[0][4].filled) {
                 check.isMandatoryFives = true;
-            } else if (yahtzeeKind == 6 && !scoreSheet[0][5].filled) {
+            } else if (yahtzeeKind == 6 & !scoreSheet[0][5].filled) {
                 check.isMandatorySixes = true;
             } else {
                 check.isMandatory = false;
-                boolean isLowerSectionFilledSoFar = true;
+                boolean isLowerSectionFilled = true;
                 for (int i = 0; i < 7; i++) {
                     if (!scoreSheet[1][i].filled){
-                        isLowerSectionFilledSoFar = false;
+                        isLowerSectionFilled = false;
                     }
                 }
-                if (isLowerSectionFilledSoFar) {
+                if (!isLowerSectionFilled) {
                     check.isLowerSectionJoker = true;
                 }
             }

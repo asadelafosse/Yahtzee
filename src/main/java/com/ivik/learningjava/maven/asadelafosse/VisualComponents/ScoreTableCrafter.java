@@ -59,7 +59,7 @@ public class ScoreTableCrafter {
         points.setCellValueFactory(new PropertyValueFactory("score"));
 
         scoreDisplay.getColumns().setAll(name, points);
-        scoreDisplay.setPrefHeight(111);
+        scoreDisplay.setPrefHeight(139);
         scoreDisplay.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         return scoreDisplay;
     }

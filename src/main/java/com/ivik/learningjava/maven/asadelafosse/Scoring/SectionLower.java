@@ -5,8 +5,15 @@ package com.ivik.learningjava.maven.asadelafosse.Scoring;
  */
 public abstract class SectionLower extends ScoreSheet {
 
-    SectionLower(){
+    SectionLower() {
         super();
         this.fieldDescription = "Lower";
     }
+
+    public boolean isAllowed(int[]rollResult, ExtraYahtzeeChecker check) {
+        if (check.isMandatory) {
+            return false;
+        } else return true;
+    }
+
 }

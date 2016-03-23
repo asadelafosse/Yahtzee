@@ -23,15 +23,20 @@ public class ScoreSheet {
     public int fieldScore = 0;
     public String fieldScoreString = Integer.toString(fieldScore);
 
-    boolean qualifies(int[] rollResult) {
+    public boolean qualifies(int[] rollResult, ExtraYahtzeeChecker check) {
         return false;
     }
-
-    void recordScore(int scorePoints){
-        fieldScore = scorePoints;
+    public boolean isAllowed(int[] rollResult, ExtraYahtzeeChecker check) {
+        return true;
     }
 
-    int scorePoints(int[] rollResult, boolean qualifies) {
+    public void recordScore(int scorePoints){
+        this.filled = true;
+        this.fieldScore = scorePoints;
+        this.fieldScoreString = Integer.toString(fieldScore);
+    }
+
+    public int scorePoints(int[] rollResult, boolean qualifies) {
         if (qualifies){
             return determineScore(rollResult);
         } else {
@@ -49,9 +54,5 @@ public class ScoreSheet {
 
     public int determineScore(int[] rollResult){
         return 0;
-    }
-
-    public void fill(){
-        this.filled = true;
     }
 }

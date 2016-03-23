@@ -18,7 +18,7 @@ public class TotalScore {
         for (int i = 0; i < 7; i++) {
             totalLowerScore += scoreSheet[1][i].fieldScore;
         }
-        return new int[]{totalUpperScore, totalLowerScore, totalUpperScore + totalLowerScore};
+        return new int[]{totalUpperScore, totalLowerScore, scoreSheet[2][0].fieldScore, totalUpperScore + totalLowerScore + scoreSheet[2][0].fieldScore};
 
     }
 }

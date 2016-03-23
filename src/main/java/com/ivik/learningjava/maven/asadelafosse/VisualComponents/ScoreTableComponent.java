@@ -45,7 +45,8 @@ public class ScoreTableComponent {
         int[] totals = TotalScore.updateScores(scoreSheet);
         output.add(new ScoreTableEntry("Upper Section Total", totals[0]));
         output.add(new ScoreTableEntry("Lower Section Total", totals[1]));
-        output.add(new ScoreTableEntry("Grand Total", totals[2]));
+        output.add(new ScoreTableEntry("Extra Yahtzee Bonus", totals[2]));
+        output.add(new ScoreTableEntry("Grand Total", totals[3]));
         return FXCollections.observableArrayList(output);
     }
 }
