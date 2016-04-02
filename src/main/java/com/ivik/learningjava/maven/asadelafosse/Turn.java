@@ -1,7 +1,6 @@
 package com.ivik.learningjava.maven.asadelafosse;
 
 import com.ivik.learningjava.maven.asadelafosse.Scoring.ScoreSheet;
-import com.ivik.learningjava.maven.asadelafosse.Scoring.TotalScore;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.ButtonCrafter;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.DiceVisuals;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.Checkboxes;
@@ -13,7 +12,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -32,7 +30,7 @@ public class Turn {
     public Turn(final Pane root, final ScoreSheet[][] scoreSheet, final Circle[][] DICEPIPS, final CheckBox[] checkboxes,
                 final Button startNewTurn, final Button finish, final VBox oldVBox) throws InterruptedException {
         rollCount = 1;
-                Thread.sleep(1000);
+                Thread.sleep(500);
         myRoll = Roll.rollTheDice();
         showDice(myRoll, DICEPIPS);
         Checkboxes.uncheckCheckboxes(checkboxes);
@@ -43,6 +41,11 @@ public class Turn {
         nextRoll.setTranslateY(550);
         nextRoll.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                try {
+                    Thread.sleep(500);
+                } catch(InterruptedException e) {
+
+                }
                 rollCount++;
                 for (int i = 0; i < 5; i++) {
                     savedDice[i] = checkboxes[i].isSelected();

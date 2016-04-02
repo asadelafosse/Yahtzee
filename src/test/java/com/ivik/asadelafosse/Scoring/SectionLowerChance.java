@@ -1,7 +1,5 @@
 package com.ivik.asadelafosse.Scoring;
 
-import com.ivik.asadelafosse.RollEvaluator;
-
 /**
  * Created by Sebastien on 15-3-2016.
  */

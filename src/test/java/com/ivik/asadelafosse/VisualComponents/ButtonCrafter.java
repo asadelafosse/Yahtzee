@@ -1,7 +1,5 @@
 package com.ivik.asadelafosse.VisualComponents;
 
-import com.ivik.asadelafosse.Game;
-import com.ivik.asadelafosse.RollEvaluator;
 import com.ivik.asadelafosse.Scoring.BonusUpperSection;
 import com.ivik.asadelafosse.Scoring.ExtraYahtzeeChecker;
 import com.ivik.asadelafosse.Scoring.ScoreSheet;

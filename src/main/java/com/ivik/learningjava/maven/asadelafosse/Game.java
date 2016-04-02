@@ -6,6 +6,7 @@ import com.ivik.learningjava.maven.asadelafosse.Scoring.TotalScore;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.DiceVisuals;
 import com.ivik.learningjava.maven.asadelafosse.Scoring.ScoreExecutor;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.Checkboxes;
+import com.ivik.learningjava.maven.asadelafosse.VisualComponents.HighScoreTableCrafter;
 import com.ivik.learningjava.maven.asadelafosse.VisualComponents.ScoreTableCrafter;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -25,6 +26,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -53,6 +57,20 @@ public class Game extends Application{
         final VBox vbox = new VBox(20);
         vbox.setPadding(new Insets(25, 25, 25, 25));
         vbox.getChildren().addAll(upperScores, lowerScores, totalScores);
+        vbox.setVisible(false);
+
+        final ArrayList highScores = HighScores.retrieveHighScores("highscores.csv");
+        final TableView highScoresTable = HighScoreTableCrafter.highScoreTable(highScores);
+        highScoresTable.setPrefHeight(307);
+        Label label = new Label ("YAHTZEE HIGH SCORES");
+        label.setFont(Font.font(null, FontWeight.BOLD, 20));
+        label.setTranslateX(65);
+        label.setMinWidth(350);
+        final VBox vbox2 = new VBox(10);
+        vbox2.setPadding(new Insets(25, 25, 25, 25));
+        vbox2.setTranslateX(400);
+        vbox2.setMinHeight(307);
+        vbox2.getChildren().addAll(label, highScoresTable);
 
         final Rectangle[] drawnDice = DiceVisuals.drawDice();
 
@@ -229,11 +247,57 @@ public class Game extends Application{
             public void handle(ActionEvent actionEvent) {
                 finish.setVisible(false);
                 Group endOfGame = new Group();
-                Text endText = new Text(465, 250, ("YOUR FINAL SCORE IS: " + TotalScore.updateScores(scoreSheet)[3]));
+                final Text endText = new Text(465, 250, ("YOUR FINAL SCORE IS: " + TotalScore.updateScores(scoreSheet)[3]));
                 endText.setFont(Font.font(null, FontWeight.BOLD, 20));
-                endOfGame.getChildren().add(endText);
+                final TextField yourName = new TextField();
+                yourName.setPromptText("Enter your name.");
+                yourName.setPrefColumnCount(10);
+                yourName.setTranslateX(510);
+                yourName.setTranslateY(270);
+                yourName.getText();
+                yourName.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        endText.setVisible(false);
+                        yourName.setVisible(false);
+                        StringBuilder enteredName = new StringBuilder(yourName.getText());
+                        for (int i = 0; i < enteredName.length(); i++){
+                            if (enteredName.charAt(i) == ','){
+                                enteredName.delete(i, i+1);
+                            }
+                        }
+                        ArrayList<String> winner = new ArrayList<String>(0);
+                        winner.add(enteredName.toString());
+                        winner.add(Integer.toString(TotalScore.updateScores(scoreSheet)[3]));
+                        highScores.remove(9);
+                        highScores.add(winner);
+                        ArrayList<ArrayList<String>> newHighScores = HighScores.sortArray(highScores, HighScores.compareScore);
+                        final TableView highScoresTable = HighScoreTableCrafter.highScoreTable(newHighScores);
+                        highScoresTable.setPrefHeight(307);
+                        Label label = new Label ("YAHTZEE HIGH SCORES");
+                        label.setFont(Font.font(null, FontWeight.BOLD, 20));
+                        label.setTranslateX(65);
+                        label.setMinWidth(350);
+                        final VBox vbox3 = new VBox(10);
+                        vbox3.setPadding(new Insets(25, 25, 25, 25));
+                        vbox3.setTranslateX(400);
+                        vbox3.setMinHeight(307);
+                        vbox3.getChildren().addAll(label, highScoresTable);
+                        root.getChildren().remove(vbox2);
+                        root.getChildren().add(vbox3);
+                        try {
+                            FileWriter writer = new FileWriter("highscores.csv", true);
+                                writer.write(winner.get(0) + ",");
+                                writer.write(winner.get(1) + "\n");
+                            writer.flush();
+                            writer.close();
+                        } catch(IOException x) {}
+
+                        close.setVisible(true);
+                    }
+                });
+
+                endOfGame.getChildren().addAll(endText, yourName);
                 root.getChildren().add(endOfGame);
-                close.setVisible(true);
             }
         });
 
@@ -243,6 +307,8 @@ public class Game extends Application{
         startNewTurn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 startNewTurn.setVisible(false);
+                vbox.setVisible(true);
+                vbox2.setVisible(false);
                 try {Turn thisTurn = new Turn(root, scoreSheet, DICEPIPS, drawnCheckboxes, startNewTurn, finish, vbox);
                     turnOutcome = thisTurn.myRoll;
                 }
@@ -251,7 +317,7 @@ public class Game extends Application{
             }
         });
 
-        root.getChildren().addAll(vbox, dice, allPips, startNewTurn, finish, close, checkboxes);
+        root.getChildren().addAll(vbox, vbox2, dice, allPips, startNewTurn, finish, close, checkboxes);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
