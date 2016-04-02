@@ -1,6 +1,5 @@
-package com.ivik.asadelafosse.VisualComponents;
+package com.ivik.yahtzee.VisualComponents;
 
-import com.ivik.yahtzee.VisualComponents.ScoreTableEntry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;

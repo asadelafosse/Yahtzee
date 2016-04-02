@@ -1,11 +1,11 @@
-package com.ivik.asadelafosse;
+package com.ivik.yahtzee;
 
 import com.ivik.yahtzee.Scoring.BonusUpperSection;
-import com.ivik.yahtzee.Scoring.ScoreExecutor;
 import com.ivik.yahtzee.Scoring.ScoreSheet;
 import com.ivik.yahtzee.Scoring.TotalScore;
-import com.ivik.yahtzee.VisualComponents.Checkboxes;
 import com.ivik.yahtzee.VisualComponents.DiceVisuals;
+import com.ivik.yahtzee.Scoring.ScoreExecutor;
+import com.ivik.yahtzee.VisualComponents.Checkboxes;
 import com.ivik.yahtzee.VisualComponents.HighScoreTableCrafter;
 import com.ivik.yahtzee.VisualComponents.ScoreTableCrafter;
 import javafx.application.Application;

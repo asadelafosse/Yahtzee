@@ -1,9 +1,9 @@
-package com.ivik.asadelafosse;
+package com.ivik.yahtzee;
 
 import com.ivik.yahtzee.Scoring.ScoreSheet;
 import com.ivik.yahtzee.VisualComponents.ButtonCrafter;
-import com.ivik.yahtzee.VisualComponents.Checkboxes;
 import com.ivik.yahtzee.VisualComponents.DiceVisuals;
+import com.ivik.yahtzee.VisualComponents.Checkboxes;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
