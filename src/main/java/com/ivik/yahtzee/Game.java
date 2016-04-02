@@ -263,6 +263,7 @@ public class Game extends Application{
                         for (int i = 0; i < enteredName.length(); i++){
                             if (enteredName.charAt(i) == ','){
                                 enteredName.delete(i, i+1);
+                                i--;
                             }
                         }
                         ArrayList<String> winner = new ArrayList<String>(0);
