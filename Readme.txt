@@ -1,7 +1,8 @@
 Yahtzee Solitaire by Sébastien
 
 The accompanying game is a tribute to the famous dice game owned by Hasbro (not me), and coded for JavaFX.
-This was an exercise to practice my skills in Java coding, and in no way intended as an infringement on any copyrights.
+This is an exercise to practice my skills in Java coding.
+I am in no way profiting from this program or intending to harm or diminish the profits by the owner of the copyright.
 
 For full rules of the game, please see: http://www.hasbro.com/common/instruct/yahtzee.pdf
 
